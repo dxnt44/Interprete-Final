@@ -50,7 +50,10 @@ public class GeneradorPostfija {
                 if(pila.peek().tipo == TipoToken.LPAREN){
                     pila.pop();
                 }
-                if(estructuraDeControl){
+
+                // Esta sección de aquí es para manejar el ")" que cierra la
+                // condición de la estructura de control
+                if(estructuraDeControl && infija.get(i + 1).tipo == TipoToken.LBRACE){
                     postfija.add(new Token(TipoToken.SEMICOLON, ";", null));
                 }
             }
@@ -90,7 +93,16 @@ public class GeneradorPostfija {
                     postfija.add(new Token(TipoToken.SEMICOLON, ";", null));
 
                     // Se extrae de la pila de estrucuras de control, el elemento en el tope
-                    pilaEstructurasDeControl.pop();
+                    Token aux = pilaEstructurasDeControl.pop();
+
+                    /*
+                        Si se da este caso, es necesario extraer el IF de la pila
+                        pilaEstructurasDeControl, y agregar los ";" correspondientes
+                     */
+                    if(aux.tipo == TipoToken.ELSE){
+                        pilaEstructurasDeControl.pop();
+                        postfija.add(new Token(TipoToken.SEMICOLON, ";", null));
+                    }
                     if(pilaEstructurasDeControl.isEmpty()){
                         estructuraDeControl = false;
                     }
@@ -113,4 +125,3 @@ public class GeneradorPostfija {
     }
 
 }
-
