@@ -46,7 +46,7 @@ public class GeneradorAST {
                 }
                 pila.push(n);
             }
-            else if(t.tipo == TipoToken.SEMICOLON){
+            else if(t.tipo == TipoToken.PUNTO_Y_COMA){
 
                 if (pila.isEmpty()){
                     /*
@@ -64,7 +64,7 @@ public class GeneradorAST {
                         En el caso del VAR, es necesario eliminar el igual que
                         pudiera aparecer en la raíz del nodo n.
                          */
-                        if(n.getValue().tipo == TipoToken.IGUAL){
+                        if(n.getValue().tipo == TipoToken.ASIGNACION){
                             padre.insertarHijos(n.getHijos());
                         }
                         else{
@@ -73,7 +73,7 @@ public class GeneradorAST {
                         pilaPadres.pop();
                         padre = pilaPadres.peek();
                     }
-                    else if(padre.getValue().tipo == TipoToken.PRINT){
+                    else if(padre.getValue().tipo == TipoToken.IMPRIMIR){
                         padre.insertarSiguienteHijo(n);
                         pilaPadres.pop();
                         padre = pilaPadres.peek();

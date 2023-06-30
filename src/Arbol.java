@@ -25,7 +25,7 @@ public class Arbol {
                 case VAR:
                     // Crear una variable. Usar tabla de simbolos
                     break;
-                case IF:
+                case SI:
                     break;
 
             }

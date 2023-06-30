@@ -37,9 +37,9 @@ public class Token {
             case RESTA:
             case MULTIPLICACION:
             case DIVISION:
-            case IGUAL:
-            case MAYOR:
-            case MAYOR_IGUAL:
+            case ASIGNACION:
+            case MAYOR_QUE:
+            case MAYOR_O_IGUAL_QUE:L:
                 return true;
             default:
                 return false;
@@ -49,9 +49,9 @@ public class Token {
     public boolean esPalabraReservada(){
         switch (this.tipo){
             case VAR:
-            case IF:
-            case PRINT:
-            case ELSE:
+            case SI:
+            case IMPRIMIR:
+            case ADEMAS:
                 return true;
             default:
                 return false;
@@ -60,8 +60,8 @@ public class Token {
 
     public boolean esEstructuraDeControl(){
         switch (this.tipo){
-            case IF:
-            case ELSE:
+            case SI:
+            case ADEMAS:
                 return true;
             default:
                 return false;
@@ -80,10 +80,10 @@ public class Token {
             case SUMA:
             case RESTA:
                 return 2;
-            case IGUAL:
+            case ASIGNACION:
                 return 1;
-            case MAYOR:
-            case MAYOR_IGUAL:
+            case MAYOR_QUE:
+            case MAYOR_O_IGUAL_QUE:
                 return 1;
         }
 
@@ -96,9 +96,9 @@ public class Token {
             case DIVISION:
             case SUMA:
             case RESTA:
-            case IGUAL:
-            case MAYOR:
-            case MAYOR_IGUAL:
+            case ASIGNACION:
+            case MAYOR_QUE:
+            case MAYOR_O_IGUAL_QUE:L:
                 return 2;
         }
         return 0;
