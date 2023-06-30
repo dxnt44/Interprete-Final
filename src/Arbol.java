@@ -1,11 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Arbol {
     private final Nodo raiz;
+    private final TablaSimbolos tas;
 
-    public Arbol(Nodo raiz){
+    public Arbol(Nodo raiz, TablaSimbolos tas){
         this.raiz = raiz;
+        this.tas = tas;
     }
 
     public void recorrer(){
@@ -23,7 +22,15 @@ public class Arbol {
                     break;
 
                 case VAR:
-                    // Crear una variable. Usar tabla de simbolos
+                    if(n.getHijos() != null && n.getHijos().size() >=2){
+                        String Var = n.getHijos().get(0).getValue().lexema;
+                        Nodo valorNodo = n.getHijos().get(1);
+
+                        Object valorVar = new SolverAritmetico(valorNodo);
+                        tas.asignar(Var, valorVar);
+                    }else {
+                        System.out.println("Error: No se pudo declarar la variable");
+                    }
                     break;
                 case SI:
                     break;
@@ -31,6 +38,7 @@ public class Arbol {
             }
         }
     }
+
 
 }
 

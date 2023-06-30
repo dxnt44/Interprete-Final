@@ -11,28 +11,29 @@ public class Principal {
     static boolean existenErrores = false;
 
     public static void main(String[] args) throws IOException {
+        TablaSimbolos tas = new TablaSimbolos();
         if(args.length > 1) {
             System.out.println("Uso correcto: interprete [script]");
 
             // Convención defininida en el archivo "system.h" de UNIX
             System.exit(64);
         } else if(args.length == 1){
-            ejecutarArchivo(args[0]);
+            ejecutarArchivo(args[0], tas);
         } else{
-            ejecutarPrompt();
+            ejecutarPrompt(tas);
         }
-        ejecutarPrompt();
+        ejecutarPrompt(tas);
     }
 
-    private static void ejecutarArchivo(String path) throws IOException {
+    private static void ejecutarArchivo(String path, TablaSimbolos tas) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(path));
-        ejecutar(new String(bytes, Charset.defaultCharset()));
+        ejecutar(new String(bytes, Charset.defaultCharset()), tas);
 
         // Se indica que existe un error
         if(existenErrores) System.exit(65);
     }
 
-    private static void ejecutarPrompt() throws IOException{
+    private static void ejecutarPrompt(TablaSimbolos tas) throws IOException{
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
 
@@ -40,12 +41,12 @@ public class Principal {
             System.out.print(">>> ");
             String linea = reader.readLine();
             if(linea == null) break; // Presionar Ctrl + D
-            ejecutar(linea);
+            ejecutar(linea, tas);
             existenErrores = false;
         }
     }
 
-    private static void ejecutar(String source){
+    private static void ejecutar(String source, TablaSimbolos tas){
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
 
@@ -64,7 +65,7 @@ public class Principal {
             System.out.println(token);
         }*/
 
-        GeneradorAST gast = new GeneradorAST(postfija);
+        GeneradorAST gast = new GeneradorAST(postfija, tas);
         Arbol programa = gast.generarAST();
         programa.recorrer();
     }

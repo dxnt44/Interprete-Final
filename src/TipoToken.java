@@ -4,8 +4,6 @@ public enum TipoToken {
     IDENTIFICADOR,
     CADENA,
     NUMERO,
-    REAL,
-    ENTERO,
 
     // Palabras reservadas
     Y,
