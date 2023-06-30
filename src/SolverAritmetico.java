@@ -1,9 +1,11 @@
 public class SolverAritmetico {
 
     private final Nodo nodo;
+    private final TablaSimbolos tas;
 
-    public SolverAritmetico(Nodo nodo) {
+    public SolverAritmetico(Nodo nodo, TablaSimbolos tas) {
         this.nodo = nodo;
+        this.tas = tas;
     }
 
     public Object resolver(){
