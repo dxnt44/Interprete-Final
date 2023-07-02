@@ -1,7 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
-public class TablaSimbolos {
+public class TablaSimbolos  {
 
     private final Map<String, Object> values = new HashMap<>();
 
@@ -20,5 +21,12 @@ public class TablaSimbolos {
         values.put(identificador, valor);
     }
 
+    @Override
+    public TablaSimbolos clone() {
+        //TablaSimbolos nuevaTabla = new TablaSimbolos();
+        //nuevaTabla.values.putAll(values);
+        //return nuevaTabla;
+        return this;
+    }
 
 }

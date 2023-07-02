@@ -8,42 +8,54 @@ public class Arbol {
     }
 
     public void recorrer(){
-        for(Nodo n : raiz.getHijos()){
+        for(Nodo n : raiz.getHijos()) {
             Token t = n.getValue();
-            switch (t.tipo){
-                // Operadores aritméticos
-                case SUMA:
-                case RESTA:
-                case MULTIPLICACION:
-                case DIVISION:
-                    SolverAritmetico solver = new SolverAritmetico(n, tas);
-                    Object res = solver.resolver();
-                    System.out.println(res);
-                    break;
+            if (t != null) {
+                switch (t.tipo) {
+                    // Operadores aritméticos
+                    case SUMA:
+                    case RESTA:
+                    case MULTIPLICACION:
+                    case DIVISION:
+                    case O:
+                    case Y:
+                    case MAYOR_QUE:
+                    case MAYOR_O_IGUAL_QUE:
+                    case MENOR_QUE:
+                    case MENOR_O_IGUAL_QUE:
+                    case IGUALDAD:
+                    case NEGACION:
+                    case DISTINTO:
+                        SolverAritmetico solver = new SolverAritmetico(n, tas);
+                        Object res = solver.resolver();
+                        System.out.println(res);
+                        break;
+                    case VAR:
+                        if (n.getHijos() != null && n.getHijos().size() >= 2) {
+                            String Var = n.getHijos().get(0).getValue().lexema;
+                            Nodo valorNodo = n.getHijos().get(1);
 
-                case VAR:
-                    if(n.getHijos() != null && n.getHijos().size() >=2){
-                        String Var = n.getHijos().get(0).getValue().lexema;
-                        Nodo valorNodo = n.getHijos().get(1);
-
-                        Object valorVar = new SolverAritmetico(valorNodo, tas);
-                        tas.asignar(Var, valorVar);
-                    }else {
-                        System.out.println("Error: No se pudo declarar la variable");
-                    }
-                    break;
-                case IMPRIMIR:
-                    if (n.getHijos() != null && !n.getHijos().isEmpty()) {
-                        for (Nodo hijo : n.getHijos()) {
-                            evaluarNodo(hijo);
+                            Object valorVar = new SolverAritmetico(valorNodo, tas).resolver();
+                            tas.asignar(Var, valorVar);
+                        } else {
+                            System.out.println("Error: No se pudo declarar la variable");
                         }
-                    } else {
-                        System.out.println("Error: El comando PRINT no tiene ninguna expresión asociada.");
-                    }
-                    break;
-                case SI:
-                    break;
+                        break;
+                    case IMPRIMIR:
+                        if (n.getHijos() != null && !n.getHijos().isEmpty()) {
+                            for (Nodo hijo : n.getHijos()) {
+                                evaluarNodo(hijo);
+                            }
+                        } else {
+                            System.out.println("Error: El comando PRINT no tiene ninguna expresión asociada.");
+                        }
+                        break;
 
+                    case SI:
+                        break;
+                    default:
+                        System.out.println("Token no reconocido " + t.lexema);
+                }
             }
         }
     }
@@ -52,6 +64,9 @@ public class Arbol {
         Token token = nodo.getValue();
         if (token != null) {
             switch (token.tipo) {
+                case CADENA:
+                    System.out.println(token.literal);
+                    break;
                 case IDENTIFICADOR:
                     String varNombre = token.lexema;
                     if (tas.existeIdentificador(varNombre)) {
@@ -60,9 +75,6 @@ public class Arbol {
                     } else {
                         System.out.println("Error: La variable '" + varNombre + "' no existe.");
                     }
-                    break;
-                case CADENA:
-                    System.out.println(token.literal);
                     break;
                 default:
                     SolverAritmetico solver = new SolverAritmetico(nodo, tas);

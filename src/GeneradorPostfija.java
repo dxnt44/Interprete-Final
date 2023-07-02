@@ -50,9 +50,6 @@ public class GeneradorPostfija {
                 if(pila.peek().tipo == TipoToken.PARENTESIS_IZQUIERDO){
                     pila.pop();
                 }
-
-                // Esta sección de aquí es para manejar el ")" que cierra la
-                // condición de la estructura de control
                 if(estructuraDeControl && infija.get(i + 1).tipo == TipoToken.LLAVE_IZQUIERDA){
                     postfija.add(new Token(TipoToken.PUNTO_Y_COMA, ";", null));
                 }

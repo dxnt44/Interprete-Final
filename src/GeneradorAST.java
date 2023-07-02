@@ -9,8 +9,9 @@ public class GeneradorAST {
 
     public GeneradorAST(List<Token> postfija, TablaSimbolos tas){
         this.postfija = postfija;
-        this.tas = tas;
         this.pila = new Stack<>();
+        this.tas = tas;
+
     }
 
     public Arbol generarAST() {

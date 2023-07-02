@@ -9,9 +9,10 @@ import java.util.List;
 public class Principal {
 
     static boolean existenErrores = false;
+    static TablaSimbolos tas = new TablaSimbolos();
 
     public static void main(String[] args) throws IOException {
-        TablaSimbolos tas = new TablaSimbolos();
+
         if(args.length > 1) {
             System.out.println("Uso correcto: interprete [script]");
 
