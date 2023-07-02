@@ -47,8 +47,10 @@ public class GeneradorPostfija {
                     Token temp = pila.pop();
                     postfija.add(temp);
                 }
-                if(pila.peek().tipo == TipoToken.PARENTESIS_IZQUIERDO){
-                    pila.pop();
+                if(!pila.isEmpty()) {
+                    if (pila.peek().tipo == TipoToken.PARENTESIS_IZQUIERDO) {
+                        pila.pop();
+                    }
                 }
                 if(estructuraDeControl && infija.get(i + 1).tipo == TipoToken.LLAVE_IZQUIERDA){
                     postfija.add(new Token(TipoToken.PUNTO_Y_COMA, ";", null));

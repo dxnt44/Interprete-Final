@@ -28,7 +28,7 @@ public class Arbol {
                     case DISTINTO:
                         SolverAritmetico solver = new SolverAritmetico(n, tas);
                         Object res = solver.resolver();
-                        System.out.println(res);
+                        //System.out.println(res);
                         break;
                     case VAR:
                         if (n.getHijos() != null && n.getHijos().size() >= 2) {
@@ -52,6 +52,85 @@ public class Arbol {
                         break;
 
                     case SI:
+                        if (n.getHijos() != null && n.getHijos().size() <= 3) {
+                            Nodo condicionNodo = n.getHijos().get(0);
+                            Nodo bloqueVerdaderoNodo = new Nodo(null);
+                            bloqueVerdaderoNodo.insertarHijos(n.getHijos());
+                            // Nodo bloqueVerdaderoNodo = n.getHijos().get(1);
+
+                            SolverAritmetico condicionSolver = new SolverAritmetico(condicionNodo, tas);
+                            Object condicion = condicionSolver.resolver();
+
+                            if (condicion instanceof Boolean) {
+                                boolean condicionBool = (Boolean) condicion;
+
+                                if (condicionBool) {
+                                    // Ejecutar el bloque verdadero
+                                    TablaSimbolos nuevaTas = tas.clone();
+                                    Arbol bloqueVerdaderoArbol = new Arbol(bloqueVerdaderoNodo, nuevaTas);
+                                    bloqueVerdaderoArbol.recorrer();
+                                }else {
+                                    //Nodo bloqueAdemasNodo = new Nodo(null);
+                                    //bloqueAdemasNodo.insertarHijos(n.getHijos());
+                                    if (n.getHijos() != null && n.getHijos().size() == 2) {
+                                        break;
+                                    }
+                                    Nodo bloqueAdemasNodo = n.getHijos().get(2);
+                                    TablaSimbolos nuevaTas = tas.clone();
+                                    Arbol bloqueAdemasArbol = new Arbol(bloqueAdemasNodo, nuevaTas);
+                                    bloqueAdemasArbol.recorrer();
+                                }
+                            } else {
+                                System.out.println("Error: La condición del IF debe ser una expresión booleana.");
+                            }
+                        } else {
+                            System.out.println("Error: Estructura incorrecta para el nodo IF.");
+                        }
+                        break;
+                    case ADEMAS:
+                        if (n.getHijos() != null && n.getHijos().size() == 1) {
+                            Nodo bloqueElseNodo = new Nodo(null);
+                            bloqueElseNodo.insertarHijos(n.getHijos());
+
+                            // Ejecutar el bloque del nodo ELSE
+                            TablaSimbolos nuevaTas = tas.clone();
+                            Arbol bloqueElseArbol = new Arbol(bloqueElseNodo, nuevaTas);
+                            bloqueElseArbol.recorrer();
+                        } else {
+                            System.out.println("Error: Estructura incorrecta para el nodo ELSE.");
+                        }
+                        break;
+                    case PARA:
+                        if (n.getHijos() != null && n.getHijos().size() == 4) {
+                            Nodo inicializacionNodo = n.getHijos().get(0);
+                            Nodo condicionNodo = n.getHijos().get(1);
+                            Nodo incrementoNodo = n.getHijos().get(2);
+                            Nodo bloqueForNodo = n.getHijos().get(3);
+
+                            // Ejecutar la inicialización del FOR
+                            Arbol inicializacionArbol = new Arbol(inicializacionNodo, tas);
+                            inicializacionArbol.recorrer();
+
+                            // Evaluar la condición del FOR
+                            SolverAritmetico solverCondicion = new SolverAritmetico(condicionNodo, tas);
+                            boolean condicion = (boolean) solverCondicion.resolver();
+
+                            // Ejecutar el bloque del FOR mientras la condición sea verdadera
+                            while (condicion) {
+                                // Ejecutar el bloque del FOR
+                                Arbol bloqueForArbol = new Arbol(bloqueForNodo, tas);
+                                bloqueForArbol.recorrer();
+
+                                // Ejecutar el incremento del FOR
+                                Arbol incrementoArbol = new Arbol(incrementoNodo, tas);
+                                incrementoArbol.recorrer();
+
+                                // Volver a evaluar la condición del FOR
+                                condicion = (boolean) solverCondicion.resolver();
+                            }
+                        } else {
+                            System.out.println("Error: Estructura incorrecta para el nodo FOR.");
+                        }
                         break;
                     default:
                         System.out.println("Token no reconocido " + t.lexema);
