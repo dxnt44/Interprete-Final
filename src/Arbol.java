@@ -118,6 +118,10 @@ public class Arbol {
                             incrementoNodo.insertarSiguienteHijo(n.getHijos().get(2));
                             //TablaSimbolos nuevaTas = tas.clone();
                             //Nodo bloqueForNodo = n.getHijos().get(3);
+                            Nodo bloqueForNodo = new Nodo(null);
+                            for(int i=3; i < n.getHijos().size();i++) {
+                                bloqueForNodo.insertarSiguienteHijo(n.getHijos().get(i));
+                            }
 
                             // Ejecutar la inicialización del FOR
                             Arbol inicializacionArbol = new Arbol(inicializacionNodo, tas);
@@ -130,6 +134,8 @@ public class Arbol {
                             // Ejecutar el bloque del FOR mientras la condición sea verdadera
                             while (condicion) {
                                 // Ejecutar el bloque del FOR
+
+                                /*
                                 for(int i = 3; i < n.getHijos().size(); i++){
                                     //Nodo bloqueForNodo = n.getHijos().get(i);
                                     Nodo bloqueForNodo = new Nodo(null);
@@ -137,6 +143,9 @@ public class Arbol {
                                     Arbol bloqueForArbol = new Arbol(bloqueForNodo, nuevaTas);
                                     bloqueForArbol.recorrer();
                                 }
+                                */
+                                Arbol bloqueForArbol = new Arbol(bloqueForNodo, nuevaTas);
+                                bloqueForArbol.recorrer();
                                 // Ejecutar el incremento del FOR
 
                                 Arbol incrementoArbol = new Arbol(incrementoNodo, nuevaTas);
@@ -165,10 +174,12 @@ public class Arbol {
                         }
                         break;
                     case MIENTRAS:
-                        if (n.getHijos() != null && n.getHijos().size() == 2) {
+                        if (n.getHijos() != null && n.getHijos().size() >= 1) {
                             Nodo condicionNodo = n.getHijos().get(0);
-                            Nodo bloqueWhileNodo = n.getHijos().get(1);
-
+                            Nodo bloqueWhileNodo = new Nodo(null);
+                            for(int i=1; i < n.getHijos().size();i++) {
+                                bloqueWhileNodo.insertarSiguienteHijo(n.getHijos().get(i));
+                            }
                             // Evaluar la condición del WHILE
                             SolverAritmetico solverCondicion = new SolverAritmetico(condicionNodo, tas);
                             boolean condicion = (boolean) solverCondicion.resolver();
