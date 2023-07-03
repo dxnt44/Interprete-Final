@@ -101,28 +101,41 @@ public class Arbol {
                         }
                         break;
                     case PARA:
-                        if (n.getHijos() != null && n.getHijos().size() == 4) {
-                            Nodo inicializacionNodo = n.getHijos().get(0);
+                        if (n.getHijos() != null && n.getHijos().size() > 3) {
+                            Nodo temp = new Nodo(null);
+                            temp.insertarHijos(n.getHijos());
+                            Nodo inicializacionNodo = new Nodo(null);
+                            inicializacionNodo.insertarSiguienteHijo(n.getHijos().get(0));
+                            //Nodo inicializacionNodo = n.getHijos().get(0);
+                            //Nodo condicionNodo = new Nodo(null);
+                            //condicionNodo.insertarSiguienteHijo(n.getHijos().get(1));
                             Nodo condicionNodo = n.getHijos().get(1);
-                            Nodo incrementoNodo = n.getHijos().get(2);
-                            Nodo bloqueForNodo = n.getHijos().get(3);
+                            Nodo incrementoNodo = new Nodo(null);
+                            incrementoNodo.insertarSiguienteHijo(n.getHijos().get(2));
+                            //TablaSimbolos nuevaTas = tas.clone();
+                            //Nodo bloqueForNodo = n.getHijos().get(3);
 
                             // Ejecutar la inicialización del FOR
                             Arbol inicializacionArbol = new Arbol(inicializacionNodo, tas);
                             inicializacionArbol.recorrer();
-
+                            TablaSimbolos nuevaTas = tas.clone();
                             // Evaluar la condición del FOR
-                            SolverAritmetico solverCondicion = new SolverAritmetico(condicionNodo, tas);
+                            SolverAritmetico solverCondicion = new SolverAritmetico(condicionNodo, nuevaTas);
                             boolean condicion = (boolean) solverCondicion.resolver();
 
                             // Ejecutar el bloque del FOR mientras la condición sea verdadera
                             while (condicion) {
                                 // Ejecutar el bloque del FOR
-                                Arbol bloqueForArbol = new Arbol(bloqueForNodo, tas);
-                                bloqueForArbol.recorrer();
-
+                                for(int i = 3; i < n.getHijos().size(); i++){
+                                    //Nodo bloqueForNodo = n.getHijos().get(i);
+                                    Nodo bloqueForNodo = new Nodo(null);
+                                    bloqueForNodo.insertarSiguienteHijo(n.getHijos().get(i));
+                                    Arbol bloqueForArbol = new Arbol(bloqueForNodo, nuevaTas);
+                                    bloqueForArbol.recorrer();
+                                }
                                 // Ejecutar el incremento del FOR
-                                Arbol incrementoArbol = new Arbol(incrementoNodo, tas);
+
+                                Arbol incrementoArbol = new Arbol(incrementoNodo, nuevaTas);
                                 incrementoArbol.recorrer();
 
                                 // Volver a evaluar la condición del FOR
@@ -130,6 +143,21 @@ public class Arbol {
                             }
                         } else {
                             System.out.println("Error: Estructura incorrecta para el nodo FOR.");
+                        }
+                        break;
+                    case ASIGNACION:
+                        // Reasignación de variables
+                        if (n.getHijos() != null && n.getHijos().size() >= 2) {
+                            String nombreVariable = n.getHijos().get(0).getValue().lexema;
+                            Nodo valorNodo = n.getHijos().get(1);
+                            if (tas.existeIdentificador(nombreVariable)) {
+                                Object nuevoValor = new SolverAritmetico(valorNodo, tas).resolver();
+                                tas.asignar(nombreVariable, nuevoValor);
+                            } else {
+                                throw new RuntimeException("Error: La variable '" + nombreVariable + "' no existe.");
+                            }
+                        } else {
+                            System.out.println("Error: La reasignación de la variable está mal formada.");
                         }
                         break;
                     default:
