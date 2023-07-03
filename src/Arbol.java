@@ -54,8 +54,12 @@ public class Arbol {
                     case SI:
                         if (n.getHijos() != null && n.getHijos().size() <= 3) {
                             Nodo condicionNodo = n.getHijos().get(0);
+                            //Nodo bloqueVerdaderoNodo = new Nodo(null);
+                            //bloqueVerdaderoNodo.insertarHijos(n.getHijos());
                             Nodo bloqueVerdaderoNodo = new Nodo(null);
-                            bloqueVerdaderoNodo.insertarHijos(n.getHijos());
+                            //bloqueVerdaderoNodo.insertarHijos(n.getHijos());
+                            bloqueVerdaderoNodo.insertarSiguienteHijo(n.getHijos().get(1));
+
                             // Nodo bloqueVerdaderoNodo = n.getHijos().get(1);
 
                             SolverAritmetico condicionSolver = new SolverAritmetico(condicionNodo, tas);
@@ -158,6 +162,27 @@ public class Arbol {
                             }
                         } else {
                             System.out.println("Error: La reasignación de la variable está mal formada.");
+                        }
+                        break;
+                    case MIENTRAS:
+                        if (n.getHijos() != null && n.getHijos().size() == 2) {
+                            Nodo condicionNodo = n.getHijos().get(0);
+                            Nodo bloqueWhileNodo = n.getHijos().get(1);
+
+                            // Evaluar la condición del WHILE
+                            SolverAritmetico solverCondicion = new SolverAritmetico(condicionNodo, tas);
+                            boolean condicion = (boolean) solverCondicion.resolver();
+
+                            // Ejecutar el bloque del WHILE mientras la condición sea verdadera
+                            while (condicion) {
+                                Arbol bloqueWhileArbol = new Arbol(bloqueWhileNodo, tas);
+                                bloqueWhileArbol.recorrer();
+
+                                // Volver a evaluar la condición del WHILE
+                                condicion = (boolean) solverCondicion.resolver();
+                            }
+                        } else {
+                            System.out.println("Error: Estructura incorrecta para el nodo WHILE.");
                         }
                         break;
                     default:
