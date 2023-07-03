@@ -95,52 +95,52 @@ public class Scanner {
             } else
 
             if (source.charAt(cont - 1) == '(') {
-                tokens.add(new Token(TipoToken.PARENTESIS_IZQUIERDO, "(", null, linea));
+                tokens.add(new Token(TipoToken.PARENTESIS_IZQUIERDO, "(",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == ')') {
-                tokens.add(new Token(TipoToken.PARENTESIS_DERECHO, ")", null, linea));
+                tokens.add(new Token(TipoToken.PARENTESIS_DERECHO, ")",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == '{') {
-                tokens.add(new Token(TipoToken.LLAVE_IZQUIERDA, "{", null, linea));
+                tokens.add(new Token(TipoToken.LLAVE_IZQUIERDA, "{",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == '}') {
-                tokens.add(new Token(TipoToken.LLAVE_DERECHA, "}", null, linea));
+                tokens.add(new Token(TipoToken.LLAVE_DERECHA, "}",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == ',') {
-                tokens.add(new Token(TipoToken.COMA, ",", null, linea));
+                tokens.add(new Token(TipoToken.COMA, ",",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == '.') {
-                tokens.add(new Token(TipoToken.PUNTO, ".", null, linea));
+                tokens.add(new Token(TipoToken.PUNTO, ".",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == ';') {
-                tokens.add(new Token(TipoToken.PUNTO_Y_COMA, ";", null, linea));
+                tokens.add(new Token(TipoToken.PUNTO_Y_COMA, ";",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == '-') {
-                tokens.add(new Token(TipoToken.RESTA, "-", null, linea));
+                tokens.add(new Token(TipoToken.RESTA, "-",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == '+') {
-                tokens.add(new Token(TipoToken.SUMA, "+", null, linea));
+                tokens.add(new Token(TipoToken.SUMA, "+",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == '*') {
-                tokens.add(new Token(TipoToken.MULTIPLICACION, "*", null, linea));
+                tokens.add(new Token(TipoToken.MULTIPLICACION, "*",  linea));
                 cont++;
             } else if (source.charAt(cont - 1) == '/') {
                 if (cont < source.length() && source.charAt(cont) == '/') {
@@ -160,17 +160,17 @@ public class Scanner {
                     }
                     cont += 3;
                 } else {
-                    tokens.add(new Token(TipoToken.DIVISION, "/", null, linea));
+                    tokens.add(new Token(TipoToken.DIVISION, "/",  linea));
                     cont++;
                 }
             } else
 
             if (source.charAt(cont - 1) == '!') {
                 if (cont < source.length() && source.charAt(cont) == '=') {
-                    tokens.add(new Token(TipoToken.DISTINTO, "!=", null, linea));
+                    tokens.add(new Token(TipoToken.DISTINTO, "!=",  linea));
                     cont = cont + 2;
                 } else {
-                    tokens.add(new Token(TipoToken.NEGACION, "!", null, linea));
+                    tokens.add(new Token(TipoToken.NEGACION, "!",  linea));
                     cont++;
                 }
 
@@ -178,29 +178,29 @@ public class Scanner {
                 // tokens.add(new Token(TipoToken.ASIGNACION, "=", "simbolos", linea++));
 
                 if (cont < source.length() && source.charAt(cont) == '=') {
-                    tokens.add(new Token(TipoToken.IGUALDAD, "==", null, linea));
+                    tokens.add(new Token(TipoToken.IGUALDAD, "==",  linea));
                     cont = cont + 2;
                 } else {
-                    tokens.add(new Token(TipoToken.ASIGNACION, "=", null, linea));
+                    tokens.add(new Token(TipoToken.ASIGNACION, "=",  linea));
                     cont++;
                 }
             } else
 
             if (source.charAt(cont - 1) == '<') {
                 if (cont < source.length() && source.charAt(cont) == '=') {
-                    tokens.add(new Token(TipoToken.MENOR_O_IGUAL_QUE, "<=", null, linea));
+                    tokens.add(new Token(TipoToken.MENOR_O_IGUAL_QUE, "<=",  linea));
                     cont = cont + 2;
                 } else
-                    tokens.add(new Token(TipoToken.MENOR_QUE, "<", null, linea));
+                    tokens.add(new Token(TipoToken.MENOR_QUE, "<",  linea));
                 cont++;
             } else
 
             if (source.charAt(cont - 1) == '>') {
                 if (cont < source.length() && source.charAt(cont) == '=') {
-                    tokens.add(new Token(TipoToken.MAYOR_O_IGUAL_QUE, ">=", null, linea));
+                    tokens.add(new Token(TipoToken.MAYOR_O_IGUAL_QUE, ">=",  linea));
                     cont = cont + 2;
                 } else
-                    tokens.add(new Token(TipoToken.MAYOR_QUE, ">", null, linea));
+                    tokens.add(new Token(TipoToken.MAYOR_QUE, ">",  linea));
                 cont++;
             } else if (source.charAt(cont - 1) == '"') {
                 String aux = "";
@@ -224,72 +224,72 @@ public class Scanner {
 
                 if (source.length() - cont > 1 && source.charAt(cont - 1) == 'a' && source.charAt(cont) == 'n'
                         && source.charAt(cont + 1) == 'd') {
-                    tokens.add(new Token(TipoToken.Y, "and", null, linea));
+                    tokens.add(new Token(TipoToken.Y, "and",  linea));
                     cont = cont + 3;
 
                 } else if (source.length() - cont > 2 && source.charAt(cont - 1) == 'e' && source.charAt(cont) == 'l'
                         && source.charAt(cont + 1) == 's' && source.charAt(cont + 2) == 'e') {
-                    tokens.add(new Token(TipoToken.ADEMAS, "else", null, linea));
+                    tokens.add(new Token(TipoToken.ADEMAS, "else",  linea));
                     cont = cont + 4;
                 } else if (source.length() - cont > 3 && source.charAt(cont - 1) == 'c' && source.charAt(cont) == 'l'
                         && source.charAt(cont + 1) == 'a' && source.charAt(cont + 2) == 's'
                         && source.charAt(cont + 3) == 's') {
-                    tokens.add(new Token(TipoToken.CLASE, "class", null, linea));
+                    tokens.add(new Token(TipoToken.CLASE, "class",  linea));
                     cont = cont + 5;
                 } else if (source.length() - cont > 3 && source.charAt(cont - 1) == 'f' && source.charAt(cont) == 'a'
                         && source.charAt(cont + 1) == 'l' && source.charAt(cont + 2) == 's'
                         && source.charAt(cont + 3) == 'e') {
-                    tokens.add(new Token(TipoToken.FALSO, "false", null, linea));
+                    tokens.add(new Token(TipoToken.FALSO, "false",  linea));
                     cont = cont + 5;
                 } else if (source.length() - cont > 1 && source.charAt(cont - 1) == 'f' && source.charAt(cont) == 'u'
                         && source.charAt(cont + 1) == 'n') {
-                    tokens.add(new Token(TipoToken.FUN, "fun", null, linea));
+                    tokens.add(new Token(TipoToken.FUN, "fun",  linea));
                     cont = cont + 3;
                 } else if (source.length() - cont > 0 && source.charAt(cont - 1) == 'i' && source.charAt(cont) == 'f') {
-                    tokens.add(new Token(TipoToken.SI, "if", null, linea));
+                    tokens.add(new Token(TipoToken.SI, "if",  linea));
                     cont = cont + 2;
                 } else if (source.length() - cont > 2 && source.charAt(cont - 1) == 'n' && source.charAt(cont) == 'u'
                         && source.charAt(cont + 1) == 'l' && source.charAt(cont + 2) == 'l') {
-                    tokens.add(new Token(TipoToken.NULO, "null", null, linea));
+                    tokens.add(new Token(TipoToken.NULO, "null",  linea));
                     cont = cont + 4;
                 } else if (source.length() - cont > 0 && source.charAt(cont - 1) == 'o' && source.charAt(cont) == 'r') {
-                    tokens.add(new Token(TipoToken.O, "or", null, linea));
+                    tokens.add(new Token(TipoToken.O, "or",  linea));
                     cont = cont + 2;
                 } else if (source.length() - cont > 3 && source.charAt(cont - 1) == 'p' && source.charAt(cont) == 'r'
                         && source.charAt(cont + 1) == 'i' && source.charAt(cont + 2) == 'n'
                         && source.charAt(cont + 3) == 't') {
-                    tokens.add(new Token(TipoToken.IMPRIMIR, "print", null, linea));
+                    tokens.add(new Token(TipoToken.IMPRIMIR, "print",  linea));
                     cont = cont + 5;
                 } else if (source.length() - cont > 4 && source.charAt(cont - 1) == 'r' && source.charAt(cont) == 'e'
                         && source.charAt(cont + 1) == 't' && source.charAt(cont + 2) == 'u'
                         && source.charAt(cont + 3) == 'r' && source.charAt(cont + 4) == 'n') {
-                    tokens.add(new Token(TipoToken.RETORNAR, "return", null, linea));
+                    tokens.add(new Token(TipoToken.RETORNAR, "return",  linea));
                     cont = cont + 6;
                 } else if (source.length() - cont > 3 && source.charAt(cont - 1) == 's' && source.charAt(cont) == 'u'
                         && source.charAt(cont + 1) == 'p' && source.charAt(cont + 2) == 'e'
                         && source.charAt(cont + 3) == 'r') {
-                    tokens.add(new Token(TipoToken.SUPER, "super", null, linea));
+                    tokens.add(new Token(TipoToken.SUPER, "super",  linea));
                     cont = cont + 5;
                 } else if (source.length() - cont > 0 && source.charAt(cont - 1) == 'f' && source.charAt(cont) == 'o'
                         && source.charAt(cont + 1) == 'r') {
-                    tokens.add(new Token(TipoToken.PARA, "for", null, linea));
+                    tokens.add(new Token(TipoToken.PARA, "for",  linea));
                     cont = cont + 3;
                 } else if (source.length() - cont > 2 && source.charAt(cont - 1) == 't' && source.charAt(cont) == 'r'
                         && source.charAt(cont + 1) == 'u' && source.charAt(cont + 2) == 'e') {
-                    tokens.add(new Token(TipoToken.VERDADERO, "true", null, linea));
+                    tokens.add(new Token(TipoToken.VERDADERO, "true",  linea));
                     cont = cont + 4;
                 } else if (source.length() - cont > 2 && source.charAt(cont - 1) == 't' && source.charAt(cont) == 'h'
                         && source.charAt(cont + 1) == 'i' && source.charAt(cont + 2) == 's') {
-                    tokens.add(new Token(TipoToken.ESTE, "this", null, linea));
+                    tokens.add(new Token(TipoToken.ESTE, "this",  linea));
                     cont = cont + 4;
                 } else if (source.length() - cont > 1 && source.charAt(cont - 1) == 'v' && source.charAt(cont) == 'a'
                         && source.charAt(cont + 1) == 'r' && source.charAt(cont + 2) == ' ') {
-                    tokens.add(new Token(TipoToken.VAR, "var", null, linea));
+                    tokens.add(new Token(TipoToken.VAR, "var",  linea));
                     cont = cont + 4;
                 } else if (source.length() - cont > 3 && source.charAt(cont - 1) == 'w' && source.charAt(cont) == 'h'
                         && source.charAt(cont + 1) == 'i' && source.charAt(cont + 2) == 'l'
                         && source.charAt(cont + 3) == 'e') {
-                    tokens.add(new Token(TipoToken.MIENTRAS, "while", null, linea));
+                    tokens.add(new Token(TipoToken.MIENTRAS, "while",  linea));
                     cont = cont + 5;
                 } else
 
@@ -299,19 +299,19 @@ public class Scanner {
                         if (cont == source.length()) { // Verifica si el número es el último carácter de la cadena de
                             // origen
                             cont++;
-                            tokens.add(new Token(TipoToken.IDENTIFICADOR, aux, null, linea));
+                            tokens.add(new Token(TipoToken.IDENTIFICADOR, aux,  linea));
                             cont++;
                             break;
                         } else if (cont < source.length() && source.charAt(cont) == ' ') {
                             cont++;
-                            tokens.add(new Token(TipoToken.IDENTIFICADOR, aux, null, linea));
+                            tokens.add(new Token(TipoToken.IDENTIFICADOR, aux,  linea));
                             cont++;
                             break;
                         } else if (!(Character.isDigit(source.charAt(cont))
                                 || Character.isLetter(source.charAt(cont)))) { // Verifica si el siguiente carácter no
                             // es un número
 
-                            tokens.add(new Token(TipoToken.IDENTIFICADOR, aux, null, linea));
+                            tokens.add(new Token(TipoToken.IDENTIFICADOR, aux,  linea));
                             cont++;
                             break;
                         }
@@ -348,7 +348,7 @@ public class Scanner {
             }
 
         }
-        tokens.add(new Token(TipoToken.EOF, "", null, linea));
+        tokens.add(new Token(TipoToken.EOF, "",  linea));
         return tokens;
     }
 }

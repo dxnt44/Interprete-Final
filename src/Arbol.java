@@ -135,15 +135,6 @@ public class Arbol {
                             while (condicion) {
                                 // Ejecutar el bloque del FOR
 
-                                /*
-                                for(int i = 3; i < n.getHijos().size(); i++){
-                                    //Nodo bloqueForNodo = n.getHijos().get(i);
-                                    Nodo bloqueForNodo = new Nodo(null);
-                                    bloqueForNodo.insertarSiguienteHijo(n.getHijos().get(i));
-                                    Arbol bloqueForArbol = new Arbol(bloqueForNodo, nuevaTas);
-                                    bloqueForArbol.recorrer();
-                                }
-                                */
                                 Arbol bloqueForArbol = new Arbol(bloqueForNodo, nuevaTas);
                                 bloqueForArbol.recorrer();
                                 // Ejecutar el incremento del FOR
@@ -159,7 +150,6 @@ public class Arbol {
                         }
                         break;
                     case ASIGNACION:
-                        // Reasignación de variables
                         if (n.getHijos() != null && n.getHijos().size() >= 2) {
                             String nombreVariable = n.getHijos().get(0).getValue().lexema;
                             Nodo valorNodo = n.getHijos().get(1);
@@ -180,16 +170,15 @@ public class Arbol {
                             for(int i=1; i < n.getHijos().size();i++) {
                                 bloqueWhileNodo.insertarSiguienteHijo(n.getHijos().get(i));
                             }
-                            // Evaluar la condición del WHILE
+
+
                             SolverAritmetico solverCondicion = new SolverAritmetico(condicionNodo, tas);
                             boolean condicion = (boolean) solverCondicion.resolver();
 
-                            // Ejecutar el bloque del WHILE mientras la condición sea verdadera
                             while (condicion) {
                                 Arbol bloqueWhileArbol = new Arbol(bloqueWhileNodo, tas);
                                 bloqueWhileArbol.recorrer();
 
-                                // Volver a evaluar la condición del WHILE
                                 condicion = (boolean) solverCondicion.resolver();
                             }
                         } else {
